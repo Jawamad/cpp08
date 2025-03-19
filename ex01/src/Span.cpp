@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmuller <flmuller@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: flmuller <flmuller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:34:31 by flmuller          #+#    #+#             */
-/*   Updated: 2025/03/13 16:59:35 by flmuller         ###   ########.fr       */
+/*   Updated: 2025/03/19 15:33:55 by flmuller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Span.hpp"
 
-Span::Span(unsigned int n): N(n), _container(new std::vector<int>[n]){}
+Span::Span(unsigned int n):_container(new std::vector<int>[n]), _n(n){}
 
 Span::Span(Span const& obj)
 {
@@ -33,57 +33,75 @@ Span::~Span()
 Span&	Span::operator=(Span const& rhs)
 {
 	if (this != &rhs)
-		N = rhs.getN();
+	{
+		_n = rhs.getN();
 		if (_container != NULL)
 			delete[] _container;
 		_container = rhs.getContainer();
+	}
 	return *this;
 }
 
 unsigned int Span::getN() const
 {
-	return N;
+	return _n;
 }
 
-std::vector<int> *Span::getContainer()
+std::vector<int> *Span::getContainer() const
 {
 	return _container;
 }
 
 void	Span::addNumber(int number)
 {
-	if (_container.size() == N)
-		throw std::out_of_range("there is no space for new number ins this Span.");
-	_container.push_back(number);
+	if (_container->size() == _n || _n == 0)
+		throw std::out_of_range("there is no space for new number in this Span.");
+	_container->push_back(number);
 }
 
 int	Span::shortestSpan()
 {
-	int	result = longestSpan();
-	std::vector<int>::const_iterator it = _container.begin();
-	std::vector<int>::const_iterator nextit = it;
-	++nextit;
-	while (nextit != _container.end())
+	if (_container->size() < 2 || _n == 0)
+		throw std::logic_error("not enough numbers in Span");
+	std::vector<int> sorted = *_container;
+	std::sort(sorted.begin(), sorted.end());
+	int	minSpan = std::numeric_limits<int>::max();
+	for (std::vector<int>::iterator it = sorted.begin(); it != sorted.end() - 1; ++it)
 	{
-		if (*nextit - *it < result)
-			result = *nextit - *it;
-		nextit++;
+		int	diff = *(it + 1)- *it;
+		if (diff < minSpan)
+			minSpan = diff;
 	}
-	return result;
+	return minSpan;
 }
 
 int	Span::longestSpan()
 {
-	if (N < 1)
-		throw std::range_error("not enough numbers in Span");
-	std::sort(_container.begin(), _container.end());
-	return *_container.rbegin() - *_container.begin();
+	if (_container->size() < 2 || _n == 0)
+		throw std::logic_error("not enough numbers in Span");
+	int minVal = *std::min_element(_container->begin(), _container->end());
+	int maxVal = *std::max_element(_container->begin(), _container->end());
+	return maxVal - minVal;
 }
 
 void	Span::fillSpan()
 {
-	if (N == 0)
+	if (_n == 0)
 		throw std::out_of_range("there is no space in this Span.");
-	for (unsigned int i = 0; i < N; i++)
-		_container.push_back(rand() % N);
+	for (unsigned int i = 0; i < _n; i++)
+		_container->push_back(rand() % 100 );
+}
+
+void	Span::printSpan()
+{
+	if (_n == 0)
+		return;
+	std::vector<int>::iterator it = _container->begin();
+	std::cout << *it ;
+	while (it != _container->end() - 1)
+	{
+		it++;
+		std::cout << "," << *it ;
+	}
+	std::cout << std::endl;
 }
