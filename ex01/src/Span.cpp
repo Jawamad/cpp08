@@ -6,11 +6,13 @@
 /*   By: flmuller <flmuller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 14:34:31 by flmuller          #+#    #+#             */
-/*   Updated: 2025/03/19 15:33:55 by flmuller         ###   ########.fr       */
+/*   Updated: 2025/03/28 14:40:43 by flmuller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/Span.hpp"
+
+Span::Span(){}
 
 Span::Span(unsigned int n):_container(new std::vector<int>[n]), _n(n){}
 

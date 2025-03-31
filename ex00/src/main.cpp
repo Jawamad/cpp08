@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: flmuller <flmuller@student.42perpignan.    +#+  +:+       +#+        */
+/*   By: flmuller <flmuller@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:25:26 by flmuller          #+#    #+#             */
-/*   Updated: 2025/03/12 14:38:00 by flmuller         ###   ########.fr       */
+/*   Updated: 2025/03/31 14:35:39 by flmuller         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int	main()
 	for (std::vector<int>::iterator it = numbers.begin(); it != numbers.end(); ++it) {
 		std::cout << *it << " ";
 	}
-	std::cout << std::endl << "easyfind 87 ond Vector container"<< std::endl;
+	std::cout << std::endl << "easyfind 87 on Vector container"<< std::endl;
 	try {
 		std::cout << *easyfind(numbers, 87) << std::endl;
 	}
 	catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
 	}
-	std::cout << std::endl << "easyfind 0 ond Vector container"<< std::endl;
+	std::cout << std::endl << "easyfind 0 on Vector container"<< std::endl;
 	try {
 		std::cout << *easyfind(numbers, 0) << std::endl;
 	}
@@ -52,14 +52,14 @@ int	main()
 	for (std::list<int>::iterator it = listNumbers.begin(); it != listNumbers.end(); ++it) {
 		std::cout << *it << " ";
 	}
-	std::cout << std::endl << "easyfind 87 ond List container"<< std::endl;
+	std::cout << std::endl << "easyfind 87 on List container"<< std::endl;
 	try {
 		std::cout << *easyfind(listNumbers, 87) << std::endl;
 	}
 	catch (std::exception &e) {
 		std::cerr << e.what() << std::endl;
 	}
-	std::cout << std::endl << "easyfind 0 ond List container"<< std::endl;
+	std::cout << std::endl << "easyfind 0 on List container"<< std::endl;
 	try {
 		std::cout << *easyfind(listNumbers, 0) << std::endl;
 	}
